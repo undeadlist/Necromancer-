@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -X POST \"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent\" -H \"Content-Type: application/json\" -H \"x-goog-api-key: AIzaSyBjKsHTGw8Tu8fg6qztRh1ogPaePIROWEQ\" -d \"{\"\"contents\"\":[{\"\"parts\"\":[{\"\"text\"\":\"\"Generate a simple SVG of a red circle. Return ONLY the SVG code, no explanation.\"\"}]}],\"\"generationConfig\"\":{\"\"temperature\"\":0.7,\"\"maxOutputTokens\"\":1024}}\")",
+      "Bash(curl:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)",
+      "Bash(dir:*)"
+    ]
+  }
+}
