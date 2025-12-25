@@ -26,3 +26,6 @@ npm-debug.log*
 # Cache
 .cache/
 .parcel-cache/
+
+# Claude Code
+.claude/
