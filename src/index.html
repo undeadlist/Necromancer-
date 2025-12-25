@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="SVG Necromancer - AI-powered SVG tool. Generate, Fix, Animate, and Convert vectors using Gemini AI.">
+  <!-- CSP: 'unsafe-inline' required for SVG <style> animations -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                  script-src 'self';
-                 style-src 'self' https://fonts.googleapis.com;
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
                  font-src https://fonts.gstatic.com;
                  img-src 'self' data: blob:;
                  connect-src https://generativelanguage.googleapis.com;">
@@ -77,6 +78,11 @@
         <span class="tab-label">Convert</span>
         <span class="tab-jp" lang="ja" aria-hidden="true">変換</span>
       </button>
+      <button class="tab" role="tab" id="tab-image" aria-selected="false" aria-controls="panel-image" data-tab="image" tabindex="-1">
+        <span class="tab-icon" aria-hidden="true">🖼️</span>
+        <span class="tab-label">Image</span>
+        <span class="tab-jp" lang="ja" aria-hidden="true">画像</span>
+      </button>
     </nav>
 
     <!-- Status Bar -->
@@ -91,6 +97,26 @@
           <label for="promptInput" class="form-label">Describe your SVG</label>
           <textarea id="promptInput" class="form-textarea" placeholder="A minimalist mountain logo with sun rays..." aria-describedby="prompt-help"></textarea>
           <span id="prompt-help" class="visually-hidden">Describe the SVG you want to generate. Be specific about colors, shapes, and style.</span>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="styleSelect" class="form-label">Style</label>
+              <select id="styleSelect" class="form-select">
+                <option value="modern">Modern</option>
+                <option value="dark">Dark/Mystical</option>
+                <option value="playful">Playful</option>
+                <option value="corporate">Corporate</option>
+                <option value="minimal">Minimal</option>
+                <option value="vintage">Vintage</option>
+                <option value="neon">Neon</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="textOverlay" class="form-label">Include Text (optional)</label>
+              <input type="text" id="textOverlay" class="form-input" placeholder="e.g., LOGO, BRAND">
+            </div>
+          </div>
+
           <button id="generateBtn" class="btn btn-primary">召喚 Generate</button>
         </div>
 
@@ -142,6 +168,41 @@
           </div>
         </div>
 
+        <!-- Image Panel -->
+        <div id="panel-image" class="tab-panel" role="tabpanel" aria-labelledby="tab-image">
+          <label for="imagePrompt" class="form-label">Describe the image</label>
+          <textarea id="imagePrompt" class="form-textarea" rows="3" placeholder="A minimalist tech logo with circuit patterns..."></textarea>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="imageStyle" class="form-label">Style</label>
+              <select id="imageStyle" class="form-select">
+                <option value="modern">Modern</option>
+                <option value="corporate">Corporate</option>
+                <option value="playful">Playful</option>
+                <option value="minimal">Minimal</option>
+                <option value="tech">Tech/Futuristic</option>
+                <option value="vintage">Vintage</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="imageModel" class="form-label">Quality</label>
+              <select id="imageModel" class="form-select">
+                <option value="gemini">Gemini Flash (Free)</option>
+                <option value="imagen4Fast">Imagen Fast ($0.02)</option>
+                <option value="imagen4">Imagen Standard ($0.04)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="imageText" class="form-label">Include Text (optional)</label>
+            <input type="text" id="imageText" class="form-input" placeholder="e.g., BRAND, LOGO">
+          </div>
+
+          <button id="imageGenBtn" class="btn btn-primary">🖼️ 生成 Generate Image</button>
+        </div>
+
         <!-- Code Editor -->
         <div class="editor-section">
           <div class="editor-header">
@@ -169,9 +230,14 @@
             <div class="empty-state-desc">Generate or paste SVG code to see it come to life</div>
           </div>
         </div>
+        <!-- Image Preview (hidden by default) -->
+        <div id="imagePreview" class="preview-area image-preview" style="display: none;" aria-label="Generated Image">
+          <img id="generatedImage" src="" alt="Generated image">
+        </div>
         <div class="export-buttons">
           <button id="downloadSvgBtn" class="btn btn-export">Download SVG</button>
           <button id="downloadPngBtn" class="btn btn-export">Download PNG</button>
+          <button id="downloadImageBtn" class="btn btn-export" disabled>Download Image</button>
         </div>
       </div>
     </main>

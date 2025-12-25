@@ -10,6 +10,21 @@ export const Utils = {
       clearTimeout(timeout);
       timeout = setTimeout(() => fn.apply(this, args), delay);
     };
+  },
+
+  extractSVG(text) {
+    if (!text) return null;
+    // Strip markdown code blocks (```svg, ```xml, ```html, ```)
+    let cleaned = text.replace(/```(?:svg|xml|html)?\n?/gi, '').replace(/```/g, '').trim();
+
+    // Use indexOf-based extraction for robustness (fixes greedy regex issues)
+    const svgStart = cleaned.indexOf('<svg');
+    const svgEnd = cleaned.lastIndexOf('</svg>');
+
+    if (svgStart !== -1 && svgEnd !== -1) {
+      return cleaned.substring(svgStart, svgEnd + 6);
+    }
+    return null;
   }
 };
 
@@ -17,7 +32,7 @@ export const Utils = {
  * SVG Sanitizer - Security module to prevent XSS
  */
 export const SVGSanitizer = {
-  dangerousElements: ['script', 'foreignObject', 'animate', 'set', 'animateTransform', 'animateMotion'],
+  dangerousElements: ['script', 'foreignObject'],
   dangerousAttributes: [
     'onload', 'onerror', 'onclick', 'onmouseover', 'onmouseout',
     'onmousedown', 'onmouseup', 'onfocus', 'onblur', 'onchange',

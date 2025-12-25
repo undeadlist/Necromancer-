@@ -70,7 +70,9 @@ export const StatusController = {
     DOM.statusBar.className = `status-bar active ${type}`;
 
     if (type !== 'loading') {
-      this.timeout = setTimeout(() => this.clear(), CONFIG.STATUS_TIMEOUT);
+      // Longer timeout for errors so users notice them (5s vs 3s)
+      const timeout = type === 'error' ? 5000 : CONFIG.STATUS_TIMEOUT;
+      this.timeout = setTimeout(() => this.clear(), timeout);
     }
   },
 

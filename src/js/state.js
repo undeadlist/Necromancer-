@@ -27,6 +27,8 @@ export function initDOM() {
   DOM.svgEditor = document.getElementById('svgEditor');
   DOM.previewArea = document.getElementById('previewArea');
   DOM.promptInput = document.getElementById('promptInput');
+  DOM.styleSelect = document.getElementById('styleSelect');
+  DOM.textOverlay = document.getElementById('textOverlay');
   DOM.generateBtn = document.getElementById('generateBtn');
   DOM.fixBtn = document.getElementById('fixBtn');
   DOM.animationType = document.getElementById('animationType');
@@ -40,6 +42,17 @@ export function initDOM() {
   DOM.clearCodeBtn = document.getElementById('clearCodeBtn');
   DOM.downloadSvgBtn = document.getElementById('downloadSvgBtn');
   DOM.downloadPngBtn = document.getElementById('downloadPngBtn');
+
+  // Image tab elements
+  DOM.imagePrompt = document.getElementById('imagePrompt');
+  DOM.imageStyle = document.getElementById('imageStyle');
+  DOM.imageModel = document.getElementById('imageModel');
+  DOM.imageText = document.getElementById('imageText');
+  DOM.imageGenBtn = document.getElementById('imageGenBtn');
+  DOM.imagePreview = document.getElementById('imagePreview');
+  DOM.generatedImage = document.getElementById('generatedImage');
+  DOM.downloadImageBtn = document.getElementById('downloadImageBtn');
+
   DOM.tabs = document.querySelectorAll('.tab');
   DOM.panels = document.querySelectorAll('.tab-panel');
 }

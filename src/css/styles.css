@@ -277,6 +277,12 @@ body {
   background: rgba(255, 51, 102, 0.1);
   border: 1px solid var(--accent-pink);
   color: var(--accent-pink);
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+.btn-small:active {
+  transform: scale(0.95);
+  opacity: 0.8;
 }
 
 .btn-export {
@@ -347,6 +353,10 @@ body {
   font-size: 14px;
   font-family: inherit;
   transition: border-color var(--transition-fast);
+  /* Ensure text is visible in custom-styled selects */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .form-input:focus,
@@ -362,11 +372,40 @@ body {
 
 .form-select {
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   padding-right: 36px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure dropdown options are visible and clickable */
+.form-select option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 8px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .help-text {
@@ -553,6 +592,8 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
+  position: relative;
+  z-index: 100;
 }
 
 .status-bar.active {
@@ -693,6 +734,17 @@ body {
 .preview-area svg {
   max-width: 100%;
   max-height: 100%;
+}
+
+.image-preview {
+  display: none;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .preview-placeholder {
@@ -844,6 +896,7 @@ body {
   }
 }
 
+/* Small tablets / large phones */
 @media (max-width: 480px) {
   .modal-buttons {
     flex-direction: column;
@@ -851,6 +904,59 @@ body {
 
   .export-buttons {
     flex-direction: column;
+  }
+
+  .header {
+    padding: 12px 16px;
+  }
+
+  .tab {
+    padding: 8px 12px;
+  }
+
+  .tab-jp {
+    display: none;
+  }
+
+  .tab-icon {
+    font-size: 16px;
+  }
+
+  .tab-label {
+    font-size: 11px;
+  }
+
+  .form-textarea {
+    min-height: 80px;
+  }
+
+  .code-editor {
+    min-height: 150px;
+  }
+
+  .preview-area {
+    min-height: 200px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+  .logo {
+    font-size: 18px;
+  }
+
+  .tagline-jp {
+    display: none;
+  }
+
+  .tab {
+    padding: 6px 8px;
+    min-width: auto;
+  }
+
+  .left-panel,
+  .right-panel {
+    min-width: 100%;
   }
 }
 

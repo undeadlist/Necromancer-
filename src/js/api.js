@@ -1,5 +1,6 @@
 import { CONFIG } from './config.js';
 import { AppState } from './state.js';
+import { Utils } from './utils.js';
 import { StatusController, ModalController } from './controllers/ui.js';
 import { ApiKeyController } from './controllers/api-key.js';
 
@@ -51,13 +52,14 @@ export const GeminiAPI = {
           }],
           generationConfig: {
             temperature: 0.7,
-            maxOutputTokens: 4096
+            maxOutputTokens: 65536
           }
         }),
         signal: this.currentController.signal
       });
 
       const data = await response.json();
+      console.log('RAW GEMINI RESPONSE:', JSON.stringify(data, null, 2));
 
       if (data.error) {
         console.error('[GeminiAPI] API Error:', data.error.code, data.error.message, data.error);
@@ -77,14 +79,27 @@ export const GeminiAPI = {
       let text = '';
       if (data.candidates?.[0]?.content?.parts?.[0]?.text) {
         text = data.candidates[0].content.parts[0].text;
+        console.log('RAW GEMINI TEXT:', text);
       }
 
-      const svgMatch = text.match(/<svg[\s\S]*?<\/svg>/i);
+      // Check for truncation and attempt recovery
+      const finishReason = data.candidates?.[0]?.finishReason;
+      if (finishReason === 'MAX_TOKENS') {
+        console.warn('Response truncated due to MAX_TOKENS');
+        // Attempt to recover by closing the SVG
+        if (text.includes('<svg') && !text.includes('</svg>')) {
+          text = text + '</svg>';
+          console.log('Auto-closed truncated SVG');
+        }
+      }
 
-      if (svgMatch) {
+      const svg = Utils.extractSVG(text);
+
+      if (svg) {
         StatusController.show('復活！ Revived!', 'success');
-        return svgMatch[0];
+        return svg;
       } else {
+        console.error('No valid SVG in response:', text);
         StatusController.show('No SVG found in response', 'error');
         return null;
       }

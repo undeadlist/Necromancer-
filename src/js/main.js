@@ -7,6 +7,7 @@ import { FixController } from './controllers/fix.js';
 import { AnimateController } from './controllers/animate.js';
 import { ConvertController } from './controllers/convert.js';
 import { ExportController } from './controllers/export.js';
+import { ImageGenController } from './controllers/imageGen.js';
 
 /**
  * Set up all event listeners
@@ -84,6 +85,10 @@ function setupEventListeners() {
   // Export buttons
   DOM.downloadSvgBtn.addEventListener('click', () => ExportController.downloadSVG());
   DOM.downloadPngBtn.addEventListener('click', () => ExportController.downloadPNG());
+
+  // Image generation
+  DOM.imageGenBtn?.addEventListener('click', () => ImageGenController.handle());
+  DOM.downloadImageBtn?.addEventListener('click', () => ImageGenController.download());
 
   // Global keyboard shortcuts
   document.addEventListener('keydown', (e) => {
