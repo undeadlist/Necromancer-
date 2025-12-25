@@ -1907,11 +1907,6 @@ Return ONLY the animated SVG code, no explanation, no markdown.`;
     function init() {
       initDOM();
 
-      // Demo key for testing
-      if (!localStorage.getItem(CONFIG.STORAGE_KEY)) {
-        localStorage.setItem(CONFIG.STORAGE_KEY, 'AIzaSyDSn480nib_fte74xM64GnTc9QdAlQ_3dU');
-      }
-
       ApiKeyController.load();
       setupEventListeners();
       TabController.switch('generate');
