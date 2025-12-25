@@ -16,13 +16,31 @@ AI-powered SVG tool — Generate, Fix, Animate, Convert vectors using Gemini AI.
 ```
 svg-necromancer/
 ├── src/
-│   └── index.html      # Main app (all-in-one)
-├── assets/             # Logo, favicon, etc.
-├── public/             # Static files for deployment
+│   ├── index.html              # HTML markup only (~190 lines)
+│   ├── css/
+│   │   └── styles.css          # All styles (~450 lines)
+│   └── js/
+│       ├── config.js           # CONFIG, ANIMATIONS constants
+│       ├── state.js            # AppState, DOM cache
+│       ├── utils.js            # Utils, SVGSanitizer, InputValidator
+│       ├── api.js              # GeminiAPI client
+│       ├── main.js             # Event setup + init
+│       └── controllers/
+│           ├── ui.js           # Modal, Status, Tab, Preview, Clipboard
+│           ├── api-key.js      # API key management
+│           ├── generate.js     # SVG generation
+│           ├── fix.js          # SVG repair
+│           ├── animate.js      # Animation
+│           ├── convert.js      # Format conversion
+│           └── export.js       # Download handlers
+├── assets/                     # Logo, favicon, etc.
+├── public/                     # Static files for deployment
 ├── package.json
 ├── README.md
 └── CLAUDE.md
 ```
+
+**Architecture:** ES6 modules (no build step required). All files under 500 lines.
 
 ## Color Palette
 ```css
@@ -58,10 +76,11 @@ svg-necromancer/
 5. Store API keys server-side — BYOK only
 
 ## ✅ DO
-1. Keep all code in single index.html for simplicity
-2. Maintain dark theme consistency
-3. Test all 5 tabs after changes
-4. Preserve UndeadList branding in footer
+1. Keep files modular and under 500 lines each
+2. Use ES6 module imports/exports
+3. Maintain dark theme consistency
+4. Test all 5 tabs after changes
+5. Preserve UndeadList branding in footer
 
 ## Commands
 ```bash
