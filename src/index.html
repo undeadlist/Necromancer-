@@ -1526,13 +1526,25 @@
         DOM.generateBtn.disabled = true;
         DOM.generateBtn.textContent = '降霊中...';
 
-        const systemPrompt = `You are an SVG generator. Create clean, optimized SVG code based on the user's description.
-Return ONLY the SVG code, no explanation, no markdown code blocks.
-The SVG should:
-- Use viewBox for scalability (e.g., viewBox="0 0 100 100")
-- Be well-structured and minimal
-- Include width and height attributes
-- Use appropriate colors and styling`;
+        const systemPrompt = `You are an expert SVG designer creating professional vector graphics.
+
+DESIGN PRINCIPLES:
+- Create visually appealing, detailed, and polished graphics
+- Use appropriate complexity for the request (logos need detail, simple icons can be minimal)
+- Apply good design principles: balance, contrast, visual hierarchy
+- Match the mood and theme of the request (dark/mystical for horror, bright/friendly for playful, etc.)
+- Use gradients, shadows, and layering when they enhance the design
+- Create distinctive, memorable visuals - not generic clip art
+
+TECHNICAL REQUIREMENTS:
+- Return ONLY valid SVG code, no explanation, no markdown
+- Use viewBox for scalability (typically viewBox="0 0 100 100" or appropriate aspect ratio)
+- Include width="200" height="200" attributes
+- Use meaningful colors that fit the theme
+- Ensure paths are smooth and well-crafted
+
+For logos and icons: Create something distinctive with good use of negative space and recognizable silhouette.
+For illustrations: Add appropriate detail, shading, and visual interest.`;
 
         const result = await GeminiAPI.call(prompt, systemPrompt);
 
